@@ -1,6 +1,6 @@
 class Solution {
 public:
-    public:
+    //blitz
     bool is_safe(vector<int> &cols, int r, int c) {
         for (int i = 0; i < r; i++) {
             if (cols[i] == c || abs(cols[i] - c) == abs(i - r)) {
@@ -16,14 +16,14 @@ public:
             for (int i = 0; i < n; i++) {
                 board[i][cols[i]] = 'Q';
             }
-            ans.push_back(board);  // Store the valid board configuration
+            ans.push_back(board);
             return;
         }
 
         for (int i = 0; i < n; i++) {
             if (is_safe(cols, r, i)) {
                 cols[r] = i;
-                place_queens(r + 1, n, cols, ans);  // Continue placing next queen
+                place_queens(r + 1, n, cols, ans);
             }
         }
     }
