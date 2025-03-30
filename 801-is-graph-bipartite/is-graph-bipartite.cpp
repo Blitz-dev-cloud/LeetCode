@@ -1,25 +1,16 @@
 class Solution {
     //blitz
 private:
-    bool checkIfBipartite(int s, int n, vector<vector<int>> &graph, vector<int> &color){
-        queue<int> q;
-        q.push(s);
-        color[s] = 0;
+    bool checkIfBipartite(int s, int n, vector<vector<int>> &graph, vector<int> &color, int col){
+        color[s] = col;
 
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-
-            for( auto it : graph[node] ){
-                if(color[it] == -1){
-                    q.push(it);
-                    color[it] = !color[node];
-                } else if(color[it] == color[node]){
-                    return false;
-                }
+        for( auto it : graph[s] ){
+            if(color[it] == -1){
+                if(!checkIfBipartite(it, n, graph, color, !col)) return false;
+            } else if(color[it] == color[s]){
+                return false;
             }
         }
-
         return true;
     }
 public:
@@ -30,7 +21,7 @@ public:
 
         for( int i = 0 ; i < n ; i++ ){
             if(color[i] == -1){
-                if(!checkIfBipartite(i, n, graph, color)) return false;
+                if(!checkIfBipartite(i, n, graph, color, 0)) return false;
             }
         }
 
