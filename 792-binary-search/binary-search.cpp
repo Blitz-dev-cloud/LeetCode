@@ -1,20 +1,17 @@
 class Solution {
 public:
-    int binary_search(vector<int> &nums, int l, int h, int target){
-        if(l <= h){
-            int mid = (l + h) / 2;
-            if(nums[mid] == target){
-                return mid;
-            } else if(nums[mid] < target){
-                l = mid + 1;
-            } else{
-                h = mid - 1;
-            }
-            return binary_search(nums, l, h, target);
+    //blitz
+    int f(int l, int r, vector<int> &nums, int target){
+        if(l == r){
+            if(nums[l] == target) return l;
+            return -1;
         }
-        return -1;
+        int mid = (l + r) / 2;
+        if(nums[mid] == target) return mid;
+        else if(nums[mid] < target) return f(mid + 1, r, nums, target);
+        else return f(l, mid, nums, target);
     }
     int search(vector<int>& nums, int target) {
-        return binary_search(nums, 0, nums.size() - 1, target);
+        return f(0, nums.size() - 1, nums, target);
     }
 };
