@@ -12,21 +12,22 @@
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        if(!root) return 0;
-
-        queue<pair<TreeNode*, int>> q;
+        if(!root) return NULL;
+        
+        queue<pair<TreeNode* , int>> q;
         q.push({root, 1});
-        int maxDepth = 0;
+        int mh = 1;
 
         while(!q.empty()) {
-            auto [node, depth] = q.front();
+            auto [node, height] = q.front();
+            mh = max(mh, height);
+
             q.pop();
 
-            if(!node->left && !node->right) maxDepth = max(maxDepth, depth);
-            if(node->left) q.push({node->left, depth + 1});
-            if(node->right) q.push({node->right, depth + 1});
+            if(node->left) q.push({node->left, height + 1});
+            if(node->right) q.push({node->right, height + 1});
         }
 
-        return maxDepth;
+        return mh;
     }
 };
