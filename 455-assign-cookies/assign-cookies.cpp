@@ -1,19 +1,20 @@
 class Solution {
 public:
-    //blitz
-    static bool comp(const int &a, const int &b){
-        return a > b;
-    }
     int findContentChildren(vector<int>& g, vector<int>& s) {
-        sort(g.begin(), g.end(), comp);
-        sort(s.begin(), s.end(), comp);
-        int max_cookies = 0;
-        for( int i = 0, j = 0 ; i < g.size() && j < s.size() ; i++ ){
-            if(s[j] >= g[i]){
-                max_cookies++;
-                j++;
+        sort(s.begin(), s.end());
+        sort(g.begin(), g.end());
+
+        int i = 0, j = 0;
+        int count = 0;
+
+        while(i < g.size() && j < s.size()) {
+            if(s[j] >= g[i]) {
+                count++;
+                i++;
             }
+            j++;
         }
-        return max_cookies;
+
+        return count;
     }
 };
