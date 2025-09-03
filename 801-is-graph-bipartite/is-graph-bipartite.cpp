@@ -1,23 +1,12 @@
 class Solution {
-    //blitz
 private:
-    bool checkIfBipartite(int s, int n, vector<vector<int>> &graph, vector<int> &color){
-        queue<int> q;
-        q.push(s);
-        color[s] = 0;
+    bool dfs(int node, int col, vector<int> &color, vector<vector<int>> &graph) {
+        color[node]= col;
 
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-
-            for( auto it : graph[node] ){
-                if(color[it] == -1){
-                    q.push(it);
-                    color[it] = !color[node];
-                } else if(color[it] == color[node]){
-                    return false;
-                }
-            }
+        for( auto &it : graph[node] ) {
+            if(color[it] == -1) {
+                if(!dfs(it, !col, color, graph)) return false;
+            } else if(color[it] == col) return false;
         }
 
         return true;
@@ -25,12 +14,11 @@ private:
 public:
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
-        int m = graph[0].size();
         vector<int> color(n, -1);
 
-        for( int i = 0 ; i < n ; i++ ){
-            if(color[i] == -1){
-                if(!checkIfBipartite(i, n, graph, color)) return false;
+        for( int i = 0 ; i < n ; i++ ) {
+            if(color[i] == -1) {
+                if(!dfs(i, 0, color, graph)) return false;
             }
         }
 
