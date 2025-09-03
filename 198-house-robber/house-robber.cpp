@@ -1,14 +1,22 @@
 class Solution {
+private:
+    int f(int idx, vector<int> &nums, vector<int> &dp) {
+        //if(idx > n) return 0;
+        if(idx >= nums.size()) return 0;
+
+        if(dp[idx] != -1) return dp[idx];
+
+        int take = nums[idx] + f(idx + 2, nums, dp);
+        int notTake = 0 + f(idx + 1, nums, dp);
+
+        return dp[idx] = max(take, notTake);
+    }
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
-        if(n == 1) return nums[0];
-        int prev2 = 0, prev1 = nums[0];
-        for( int i = 1 ; i < n ; i++ ){
-            int curr = max(nums[i] + prev2, prev1);
-            prev2 = prev1;
-            prev1 = curr;
-        }
-        return prev1;
+
+        vector<int> dp(n, -1);
+
+        return max(f(0, nums, dp), f(1, nums,dp));
     }
 };
