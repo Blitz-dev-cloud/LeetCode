@@ -3,32 +3,36 @@ public:
     int minimumEffortPath(vector<vector<int>>& heights) {
         int n = heights.size(), m = heights[0].size();
 
-        priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<>> pq;
-        pq.push({0, 0, 0});
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int,pair<int, int>>>,
+        greater<pair<int, pair<int, int>>>> pq;
+        pq.push({0, {0, 0}});
 
         vector<vector<int>> dist(n, vector<int> (m, INT_MAX));
         dist[0][0] = 0;
 
-        vector<pair<int, int>> dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        vector<pair<int, int>> dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
         while(!pq.empty()) {
-            auto [efforts, r, c] = pq.top();
+            int x = pq.top().second.first, y = pq.top().second.second;
+            int effort = pq.top().first;
             pq.pop();
 
-            if(r == n - 1 && c == m - 1) return efforts;
+            if(x == n - 1 && y == m - 1) return effort;
 
-            for( auto [dr, dc] : dirs ) {
-                int nr = r + dr, nc = c + dc;
-                if(nr >= 0 && nr < n && nc >= 0 && nc < m) {
-                    int newEffort = max(efforts, abs(heights[nr][nc] - heights[r][c]));
-                    if(newEffort < dist[nr][nc]) {
-                        dist[nr][nc] = newEffort;
-                        pq.push({newEffort, nr, nc});
+            for( int i = 0 ; i < 4 ; i++ ) {
+                int nx = x + dir[i].first, ny = y + dir[i].second;
+
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m) {
+                    //visited[nx][ny] = true;
+                    int newEffort = max(effort, abs(heights[nx][ny] - heights[x][y]));
+                    if(newEffort < dist[nx][ny]) {
+                        dist[nx][ny] = newEffort;
+                        pq.push({newEffort, {nx, ny}});
                     }
-                } 
+                }
             }
         }
 
-        return -1;
+        return 0;
     }
 };
