@@ -1,47 +1,43 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
-        queue<pair<pair<int, int>, int>> q;
-        vector<vector <int>> visited(n, vector<int> (m, 0));
-        int countFresh = 0;
+        int n = grid.size(), m = grid[0].size();
 
-        for( int i = 0 ; i < n ; i++ ){
-            for( int j = 0 ; j < m ; j++ ){
-                if(grid[i][j] == 2) {
-                    q.push({{i, j}, 0});
-                    visited[i][j] = 1;
-                }
-                if(grid[i][j] == 1) countFresh++;
+        vector<vector<int>> dir = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        queue<pair<int, int>> q;
+        int fresh = 0;
+
+        for( int i = 0 ; i < n ; i++ ) {
+            for( int j = 0 ; j < m ; j++ ) {
+                if(grid[i][j] == 2) q.push({i, j});
+                else if(grid[i][j] == 1) fresh++;
             }
         }
 
-        int totalMinutes = 0;
-        vector<int> delRow = {-1, 0, 1, 0};
-        vector<int> delColumn = {0, 1, 0, -1};
-        int count = 0;
-        while(!q.empty()){
-            int r = q.front().first.first;
-            int c = q.front().first.second;
-            int t = q.front().second;
-            totalMinutes = max(totalMinutes, t);
-            q.pop();
+        int minutes = -1;
 
-            for( int i = 0 ; i < 4 ; i++ ){
-                int nRow = r + delRow[i];
-                int nCol = c + delColumn[i];
-                if(nRow >= 0 && nRow < n && nCol >= 0 && nCol < m
-                && !visited[nRow][nCol] && grid[nRow][nCol] == 1){
-                    q.push({{nRow, nCol}, t + 1});
-                    visited[nRow][nCol] = 1;
-                    count++;
+        while(!q.empty()) {
+            int sz = q.size();
+            minutes++;
+
+            for( int i = 0 ; i < sz ; i++ ) {
+                auto [x, y] = q.front();
+                q.pop();
+
+                for( auto &d : dir ) {
+                    int nx = x + d[0], ny = y + d[1];
+
+                    if(nx >= 0 && nx < n && ny >= 0 && ny < m && grid[nx][ny] == 1) {
+                        grid[nx][ny] = 2;
+                        fresh--;
+                        q.push({nx, ny});
+                    }
                 }
             }
         }
 
-        if(count != countFresh) return -1;
+        if(fresh > 0) return -1;
 
-        return totalMinutes;
+        return (minutes == -1) ? 0 : minutes;
     }
 };
