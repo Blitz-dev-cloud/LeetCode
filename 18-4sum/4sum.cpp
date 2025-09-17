@@ -6,7 +6,7 @@ private:
 
         if(k == 2) {
             int l = start, r = n - 1;
-            while( l < r ) {
+            while(l < r) {
                 long long sum = (long long)nums[l] + nums[r];
                 if(sum == target) {
                     res.push_back({nums[l], nums[r]});
@@ -25,9 +25,10 @@ private:
 
             long long minSum = (long long)nums[i] + (long long)nums[i + 1] * (k - 1);
             long long maxSum = (long long)nums[i] + (long long)nums.back() * (k - 1);
-            if (target < minSum || target > maxSum) continue;
 
-            auto temp = kSumHelper(nums, target-  nums[i], k - 1, i + 1);
+            if(target < minSum || target > maxSum) continue;
+
+            auto temp = kSumHelper(nums, target - nums[i], k - 1, i + 1);
 
             for( auto &vec : temp ) {
                 vec.insert(vec.begin(), nums[i]);
