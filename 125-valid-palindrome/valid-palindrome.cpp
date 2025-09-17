@@ -1,13 +1,19 @@
 class Solution {
 public:
-    //blitz
     bool isPalindrome(string s) {
-        int l = 0, r = s.length() - 1;
+        int n = s.size();
+        int l = 0, r = n - 1;
 
-        while(l < r){
-            while(l < r && !isalnum(s[l])) l++;
-            while(l < r && !isalnum(s[r])) r--;
-            if(tolower(s[l]) != tolower(s[r])){
+        while(l <= r) {
+            if(!isalnum(s[l])) {
+                l++;
+                continue;
+            }
+            else if(!isalnum(s[r])) {
+                r--;
+                continue;
+            }
+            else if(tolower(s[l]) != tolower(s[r])) {
                 return false;
             }
             l++;
