@@ -3,7 +3,7 @@ int memoryLimit;
     queue<tuple<int,int,int>> q;
     unordered_set<string> seen;
     unordered_map<int, vector<int>> destMap;
-    unordered_map<int, int> frontIndex; // lazy deletion index per destination
+    unordered_map<int, int> frontIndex;
 
     string makeKey(int s, int d, int t) {
         return to_string(s) + "#" + to_string(d) + "#" + to_string(t);
