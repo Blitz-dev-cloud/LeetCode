@@ -1,19 +1,20 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int left = 0, right = nums.size() - 1;
+        int n = nums.size();
+        int l = 0, r = n - 1;
 
-        while( left <= right ) {
-            int mid = ( left + right ) / 2;
+        while(l <= r) {
+            int mid = l + (r - l) / 2;
 
             if(nums[mid] == target) return mid;
 
-            if(nums[left] <= nums[mid]) {
-                if(target >= nums[left] && target < nums[mid]) right = mid - 1;
-                else left = mid + 1;
+            if(nums[l] <= nums[mid]) {
+                if(nums[l] <= target && target < nums[mid]) r = mid - 1;
+                else l = mid + 1;
             } else {
-                if(target > nums[mid] && target <= nums[right]) left = mid + 1;
-                else right = mid - 1;
+                if(target > nums[mid] && nums[r] >= target) l = mid + 1;
+                else r = mid - 1;
             }
         }
 
