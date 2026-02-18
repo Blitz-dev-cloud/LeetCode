@@ -3,10 +3,10 @@ public:
     int firstUniqueFreq(vector<int>& nums) {
         int n = nums.size();
 
-        map<int, int> freq;
+        unordered_map<int, int> freq;
         for( int x : nums ) freq[x]++;
 
-        map<int, int> freqCnt;
+        unordered_map<int, int> freqCnt;
         for( auto &it : freq ) {
             freqCnt[it.second]++;
         }
