@@ -3,7 +3,6 @@ public:
     int binaryGap(int n) {
         bitset<32> b(n);
         string s = b.to_string().substr(b.to_string().find('1'));
-        cout << s;
 
         int last = -1;
         int maxGap = 0;
