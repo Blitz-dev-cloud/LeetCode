@@ -11,28 +11,19 @@
  */
 class Solution {
 private:
-    int sum = 0;
-    string s = "";
-    void dfs(TreeNode* root) {
-        if(!root) return;
-        s += char(root->val + '0');
+    int dfs(TreeNode* root, int curr) {
+        if(!root) return 0;
+        
+        curr = (curr << 1) | root->val;
+
         if(!root->left && !root->right) {
-            int num = 0;
-
-            for( char c : s ) {
-                num = num * 2 + (c - '0');
-            }
-
-            sum += num;
-        } else{
-            dfs(root->left);
-            dfs(root->right);
+            return curr;
         }
-        s.pop_back();
+
+        return dfs(root->left, curr) + dfs(root->right, curr);
     }
 public:
     int sumRootToLeaf(TreeNode* root) {
-        dfs(root);
-        return sum;
+        return dfs(root, 0);
     }
 };
