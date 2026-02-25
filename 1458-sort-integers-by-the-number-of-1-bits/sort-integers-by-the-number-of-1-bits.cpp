@@ -1,20 +1,13 @@
 class Solution {
 public:
     vector<int> sortByBits(vector<int>& arr) {
-        int n = arr.size();
+        sort(arr.begin(), arr.end(), [](int a, int b) {
+            int bitsA = __builtin_popcount(a);
+            int bitsB = __builtin_popcount(b);
 
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-
-        for( int i = 0 ; i < n ; i++ ) {
-            int temp = __builtin_popcount(arr[i]);
-            pq.push({temp, arr[i]});
-        }
-
-        int idx = 0;
-        while(!pq.empty()) {
-            arr[idx++] = pq.top().second;
-            pq.pop();
-        }
+            if(bitsA == bitsB) return a < b;
+            return bitsA < bitsB;
+        });
 
         return arr;
     }
