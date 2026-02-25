@@ -10,13 +10,10 @@ public:
 
             if((i + 1) % 6 == 0) isSwapped = !isSwapped;
 
-            if(pts % 2 == 0) {
-                 if(!isSwapped) pts1 += nums[i];
-                 else pts2 += nums[i];
-            } else {
-                if(!isSwapped) pts2 += nums[i];
-                else pts1 += nums[i];
-            }
+            bool isEven = (pts % 2 == 0);
+
+            if(isEven ^ isSwapped) pts1 += nums[i];
+            else pts2 += nums[i];
         }
 
         return pts1 - pts2;
