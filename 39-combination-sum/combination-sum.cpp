@@ -1,25 +1,24 @@
 class Solution {
-public:
-    //blitz
-    void combination_sum(int i, int n, int target, vector<int>& candidates, vector<int> &subset, vector<vector<int>> &ans){
-        if(i == n){
-            if(target == 0){
-                ans.push_back(subset);
-            }
+private:
+    vector<vector<int>> res;
+    void backtrack(int idx, vector<int> &candidates, vector<int> &curr, int target) {
+        if(target == 0) {
+            res.push_back(curr);
             return;
         }
 
-        if(candidates[i] <= target){
-            subset.push_back(candidates[i]);
-            combination_sum(i, n, target - candidates[i], candidates, subset, ans);
-            subset.pop_back();
+        if(target < 0) return;
+
+        for( int i = idx ; i < candidates.size() ; i++ ) {
+            curr.push_back(candidates[i]);
+            backtrack(i, candidates, curr, target - candidates[i]);
+            curr.pop_back();
         }
-        combination_sum(i + 1, n, target, candidates, subset, ans);
     }
+public:
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> ans;
-        vector<int> subset;
-        combination_sum(0, candidates.size(), target, candidates, subset, ans);
-        return ans;
+        vector<int> curr;
+        backtrack(0, candidates, curr, target);
+        return res;
     }
 };
