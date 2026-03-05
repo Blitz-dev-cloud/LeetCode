@@ -31,7 +31,6 @@ public:
         temp = temp->next;
 
         prev->next = nullptr;
-        //cout << cnt << endl;
 
         return temp;
     }
