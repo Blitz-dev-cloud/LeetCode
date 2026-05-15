@@ -1,4 +1,13 @@
 class Solution {
+private:
+    void cleanup(string &temp, unordered_map<string, int> &freq) {
+        if(!temp.empty() && temp[0] == '-') temp = temp.substr(1);
+        if(!temp.empty() && temp[temp.size() - 1] == '-') temp.pop_back();
+
+        if(!temp.empty()) freq[temp]++;
+        cout << temp << endl;
+        temp.clear();
+    }
 public:
     vector<int> countWordOccurrences(vector<string>& chunks, vector<string>& queries) {
         string s = "";
@@ -11,20 +20,10 @@ public:
 
         for( int i = 0 ; i < n ; i++ ) {
             if(s[i] == ' ' || s[i] == '\n') { 
-                if(!temp.empty() && temp[0] == '-') temp = temp.substr(1);
-                if(!temp.empty() && temp[temp.size() - 1] == '-') temp.pop_back();
-
-                if(!temp.empty()) freq[temp]++;
-                cout << temp << endl;
-                temp = "";
+                cleanup(temp, freq);
                 while(i + 1 < n && s[i + 1] == ' ') i++;
             } else if(i < n - 1 && s[i] == '-' && s[i + 1] == '-') {
-                if(!temp.empty() && temp[0] == '-') temp = temp.substr(1);
-                if(!temp.empty() && temp[temp.size() - 1] == '-') temp.pop_back();
-
-                if(!temp.empty()) freq[temp]++;
-                cout << temp << endl;
-                temp = "";
+                cleanup(temp, freq);
                 i++;
             } 
             else temp += s[i];
