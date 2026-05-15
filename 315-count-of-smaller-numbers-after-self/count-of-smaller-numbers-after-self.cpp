@@ -1,4 +1,5 @@
 class Solution {
+    // Fenwick Tree approach
 private:
     vector<int> bit;
     int n;
