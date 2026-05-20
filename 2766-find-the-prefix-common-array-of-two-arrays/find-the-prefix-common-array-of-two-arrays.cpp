@@ -2,21 +2,17 @@ class Solution {
 public:
     vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
         int n = A.size();
-        vector<bool> visited(n + 1, 0);
+        vector<int> freq(n + 1, 0);
         vector<int> result(n, 0);
 
         int r = 0;
         for( int i = 0 ; i < n ; i++ ) {
-            if(A[i] == B[i]) {
-                r++;
-                result[i] = r;
-            } else if(visited[A[i]] && visited[B[i]]) {
-                r += 2;
-            } else if(visited[A[i]] || visited[B[i]]) {
-                r++;
-            }
-            visited[A[i]] = true;
-            visited[B[i]] = true;
+            freq[A[i]]++;
+            if(freq[A[i]] == 2) r++;
+
+            freq[B[i]]++;
+            if(freq[B[i]] == 2) r++;
+
             result[i] = r;
         }
 
