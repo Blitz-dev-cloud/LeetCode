@@ -3,7 +3,7 @@ public:
     int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
         int m = arr1.size(), n = arr2.size();
 
-        unordered_set<int> s;
+        /*unordered_set<int> s;
         for( int a : arr2 ) {
             int temp = a;
             while(temp > 0) {
@@ -28,9 +28,9 @@ public:
                 }
                 temp /= 10;
             }
-        }
+        }*/
 
-        /*unordered_map<int, int> freq1, freq2;
+        unordered_map<int, int> freq1, freq2;
 
         for( int a : arr1 ) {
             int temp = a;
@@ -63,7 +63,7 @@ public:
         for( auto& m : freq1 ) {
             auto [key, value] = m;
             if(freq2.count(key)) maxLen = max(maxLen, value);
-        }*/
+        }
 
         return maxLen;
     }
