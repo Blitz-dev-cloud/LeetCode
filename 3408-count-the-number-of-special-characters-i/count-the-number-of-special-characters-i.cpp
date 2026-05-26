@@ -1,6 +1,7 @@
 class Solution {
 public:
     int numberOfSpecialChars(string word) {
+        
         unordered_set<char> s;
         for( char w : word ) {
             if(isupper(w)) s.insert(w);
