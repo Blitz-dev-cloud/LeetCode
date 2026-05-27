@@ -3,18 +3,24 @@ public:
     int numberOfSpecialChars(string word) {
         int n = word.size();
 
-        unordered_map<char, int> l, u;
+        vector<int> l(26, -1), u(26, -1);
 
         for( int i = 0 ; i < n ; i++ ) {
-            if(isupper(word[i]) && !u.count(word[i])) u[word[i]] = i;
-            if(islower(word[i])) l[word[i]] = i;
+            if(isupper(word[i])) {
+                int idx = word[i] - 'A';
+                if(u[idx] == -1) u[idx] = i;
+            }
+            if(islower(word[i])) {
+                int idx = word[i] - 'a';
+                l[idx] = i;
+            }
         }
 
         int result = 0;
-        for( auto& m : l ) {
-            auto [key, value] = m;
-            char K = toupper(key);
-            if(u.count(K) && value < u[K]) result++;
+        for( int i = 0 ; i < 26 ; i++ ) {
+            if(l[i] != -1 && u[i] != -1 && l[i] < u[i]) {
+                result++;
+            }
         }
 
         return result;
