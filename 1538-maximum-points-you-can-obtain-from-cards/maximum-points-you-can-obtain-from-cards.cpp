@@ -5,6 +5,8 @@ public:
         
         int sum = accumulate(cardPoints.begin(), cardPoints.end(), 0);
 
+        if(k == n) return sum;
+
         int window = n - k;
         int currSum = 0, minSum = INT_MAX;
 
