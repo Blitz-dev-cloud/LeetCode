@@ -43,8 +43,6 @@ public:
             }
         }
 
-        // sort(dsu.parent.begin(), dsu.parent.end());
-
         int result = 0;
         for( int i = 0 ; i < n ; i++ ) {
             if(dsu.findParent(i) == i) result++;
