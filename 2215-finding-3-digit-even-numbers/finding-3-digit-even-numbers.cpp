@@ -15,7 +15,6 @@ private:
             used[j] = true;
             backtrack(i + 1, n, curr * 10 + digits[j], used, digits);
             used[j] = false;
-            // curr -= digits[j] * pow(10, i);
         }
     }
 public:
