@@ -61,11 +61,6 @@ public:
             }
         }
 
-        /*for( int i = 0 ; i < N ; i++ ) {
-            cout << dsu.size[i] << " ";
-        }
-        cout << endl;*/
-
         int maxSize = *max_element(dsu.size.begin(), dsu.size.end());
 
         for( int i = 0 ; i < n ; i++ ) { 
