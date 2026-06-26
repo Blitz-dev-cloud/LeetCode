@@ -42,7 +42,6 @@ public:
                     }
                 }
                 pq.push({minTime, {minX, minY}});
-                // visited[minX][minY] = true;
             }
         }
 
