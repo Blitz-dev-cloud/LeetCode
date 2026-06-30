@@ -1,18 +1,21 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
+        int n = s.size();
         vector<int> lastSeen(3, 0);
-        int count = 0, l = 0;
 
-        for( int r = 0 ; r < s.size() ; r++ ) {
+        int result = 0;
+        int l = 0;
+
+        for( int r = 0 ; r < n ; r++ ) {
             lastSeen[s[r] - 'a']++;
             while(lastSeen[0] > 0 && lastSeen[1] > 0 && lastSeen[2] > 0) {
-                count += s.size() - r;
+                result += n - r;
                 lastSeen[s[l] - 'a']--;
                 l++;
             }
         }
 
-        return count;
+        return result;
     }
 };
