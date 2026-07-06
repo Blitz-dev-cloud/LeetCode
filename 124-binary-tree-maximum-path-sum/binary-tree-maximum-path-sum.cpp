@@ -11,20 +11,20 @@
  */
 class Solution {
 private:
-    int maxi = -999;
-    int findPath(TreeNode* root){
+    int maxPath = INT_MIN;
+    int findPath(TreeNode* root) {
         if(root == NULL) return 0;
 
-        int lh = max(0, findPath(root -> left));
-        int rh = max(0, findPath(root -> right));
+        int lh = max(0, findPath(root->left));
+        int rh = max(0, findPath(root->right));
 
-        maxi = max(maxi, root->val + lh + rh);
+        maxPath = max(maxPath, root->val + lh + rh);
 
         return root->val + max(lh, rh);
     }
 public:
     int maxPathSum(TreeNode* root) {
         findPath(root);
-        return maxi;
+        return maxPath;
     }
 };
