@@ -35,10 +35,16 @@ public:
     vector<bool> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
         DSU dsu(n);
 
-        sort(nums.begin(), nums.end());
+        vector<pair<int, int>> sortedNums(n);
+        for( int i = 0 ; i < n ; i++ ) {
+            sortedNums[i].first = nums[i];
+            sortedNums[i].second = i;
+        }
+
+        sort(sortedNums.begin(), sortedNums.end());
 
         for( int i = 1 ; i < n ; i++ ) {
-            if(abs(nums[i - 1] - nums[i]) <= maxDiff) dsu.unionBySize(i - 1, i);
+            if(abs(sortedNums[i - 1].first - sortedNums[i].first) <= maxDiff) dsu.unionBySize(sortedNums[i - 1].second, sortedNums[i].second);
         }
 
         vector<bool> result;
