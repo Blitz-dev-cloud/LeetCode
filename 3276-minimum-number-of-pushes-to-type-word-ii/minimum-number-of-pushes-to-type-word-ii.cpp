@@ -16,7 +16,7 @@ public:
             }
         }
 
-        sort(freq.begin(), freq.end(), [](const pair<int, int> &a, const pair<int, int> &b) {
+        sort(freq.begin(), freq.end(), [](const pair<char, int> &a, const pair<char, int> &b) {
             return a.second > b.second;
         });
 
