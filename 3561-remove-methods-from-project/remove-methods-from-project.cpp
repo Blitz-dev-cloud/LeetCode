@@ -27,8 +27,8 @@ public:
             }
         }
 
-        for( int i = 0 ; i < n ; i++ ) cout << sus[i] << " ";
-        cout << endl;
+        // for( int i = 0 ; i < n ; i++ ) cout << sus[i] << " ";
+        // cout << endl;
 
         vector<bool> visited(n, false);
 
