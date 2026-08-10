@@ -13,7 +13,7 @@ public:
     long long minimumTime(vector<int>& time, int totalTrips) {
         int n = time.size();
 
-        sort(time.begin(), time.end());
+        // sort(time.begin(), time.end());
 
         long long l = 1;
         long long r = 1LL * totalTrips * *max_element(time.begin(), time.end());
