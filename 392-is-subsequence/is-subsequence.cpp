@@ -4,7 +4,7 @@ public:
         int n = s.size();
         int m = t.size();
 
-        vector<vector<int>> dp(n + 1, vector<int> (m + 1, 0));
+        /* vector<vector<int>> dp(n + 1, vector<int> (m + 1, 0));
 
         for( int i = 1 ; i <= n ; i++ ) {
             for( int j = 1 ; j <= m ; j++ ) {
@@ -13,6 +13,19 @@ public:
             }
         }
 
-        return (dp[n][m] == n ? true : false);
+        return (dp[n][m] == n ? true : false); */
+
+        int l = 0;
+        int r = 0;
+
+        while(l < n && r < m) {
+            if(s[l] == t[r]) {
+                l++;
+                // r++;
+            }
+            r++;
+        }
+
+        return l == n;
     }
 };
