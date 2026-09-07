@@ -3,7 +3,7 @@ public:
     int distinctSubseqII(string s) {
         int n = s.size();
 
-        vector<int> dp(n + 1, 0);
+        /* vector<int> dp(n + 1, 0);
         unordered_map<char, int> last;
 
         int MOD = 1000000007;
@@ -20,6 +20,23 @@ public:
             last[s[i - 1]] = i;
         }
 
-        return dp[n];
+        return dp[n]; */
+
+        vector<int> last(26, 0);
+        long long dp = 0;
+
+        int MOD = 1000000007;
+
+        for( int i = 1 ; i <= n ; i++ ) {
+            char c = s[i - 1] - 'a';
+
+            long long newDp = (2 * dp + 1 - last[c] + MOD) % MOD;
+
+            last[c] = (dp + 1) % MOD;
+
+            dp = newDp;
+        }
+
+        return dp;
     }
 };
