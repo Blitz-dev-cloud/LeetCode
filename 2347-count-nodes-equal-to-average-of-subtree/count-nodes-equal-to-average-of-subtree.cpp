@@ -41,15 +41,6 @@ private:
     }
 public:
     int averageOfSubtree(TreeNode* root) {
-        /* queue<TreeNode* > q;
-        q.push(root);
-
-        while(!q.empty()) {
-            auto p = q.front();
-            q.pop();
-
-
-        } */
         dfs(root);
         return ans;
     }
