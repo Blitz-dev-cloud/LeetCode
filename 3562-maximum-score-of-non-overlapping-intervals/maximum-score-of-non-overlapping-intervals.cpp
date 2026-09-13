@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<int> maximumWeight(vector<vector<int>>& intervals) {
+        // 10/10 ragebait
         int n = intervals.size();
 
         for( int i = 0 ; i < n ; i++ ) intervals[i].push_back(i);
