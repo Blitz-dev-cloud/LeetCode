@@ -1,45 +1,63 @@
 class NumArray {
 private:
-    vector<int> bit;
-    vector<int> arr;
-    int n;
-public:
-    NumArray(vector<int>& nums) {
-        n = nums.size();
-        bit.assign(n + 1, 0);
-        arr.assign(n, 0);
+    vector<int> seg;
+    int N;
 
-        for( int i = 0 ; i < n ; i++ ) {
-            update(i, nums[i]);
+    void build(vector<int> &nums, int idx, int low, int high) {
+        if(low == high) {
+            seg[idx] = nums[low];
+            return;
         }
 
-        for( int i = 0 ; i <= n ; i++ ) cout << bit[i] << " ";
-        cout << endl;
+        int mid = low + (high - low) / 2;
+        build(nums, 2 * idx + 1, low, mid);
+        build(nums, 2 * idx + 2, mid + 1, high);
+
+        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
+    }
+
+    void pointUpdate(int idx, int low, int high, int pos, int val) {
+        if(low == high) {
+            seg[idx] = val;
+            return;
+        }
+
+        int mid = low + (high - low) / 2;
+
+        if(pos <= mid) pointUpdate(2 * idx + 1, low, mid, pos, val);
+        else pointUpdate(2 * idx + 2, mid + 1, high, pos, val);
+
+        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
+    }
+
+    int rangeQuery(int idx, int low, int high, int l, int r) {
+        if(low >= l && high <= r) {
+            return seg[idx];
+        }
+
+        if(low > r || high < l || low > high) return 0;
+
+        int mid = low + (high - low) / 2;
+        int left = rangeQuery(2 * idx + 1, low, mid, l, r);
+        int right = rangeQuery(2 * idx + 2, mid + 1, high, l, r);
+
+        return left + right;
+    }
+public:
+    NumArray(vector<int>& nums) {
+        int n = nums.size();
+        seg.resize(4 * n);
+        N = n;
+
+        build(nums, 0, 0, N - 1);
     }
     
     void update(int index, int val) {
-        int delta  = val - arr[index];
-        arr[index] = val;
-
-        index++;
-        while(index <= n) {
-            bit[index] += delta;
-            index += index & (-index);
-        }
-    }
-
-    int indexSum(int index) {
-        index++;
-        int s = 0;
-        while( index > 0) {
-            s += bit[index];
-            index -= index & (-index);
-        }
-        return s;
+        pointUpdate(0, 0, N - 1, index, val);
     }
     
     int sumRange(int left, int right) {
-        return indexSum(right) - indexSum(left - 1);
+        return rangeQuery(0, 0, N - 1, left, right);
     }
 };
 
