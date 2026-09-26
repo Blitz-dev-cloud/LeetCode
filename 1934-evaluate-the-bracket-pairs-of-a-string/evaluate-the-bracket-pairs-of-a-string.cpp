@@ -4,7 +4,7 @@ public:
         int n = s.size();
         int m = knowledge.size();
 
-        map<string, string> kb;
+        unordered_map<string, string> kb;
 
         for( int j = 0 ; j < m ; j++ ) {
             string key = knowledge[j][0];
